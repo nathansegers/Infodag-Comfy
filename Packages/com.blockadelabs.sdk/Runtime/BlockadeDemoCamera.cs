@@ -124,6 +124,7 @@ namespace BlockadeLabsSDK
         }
 
         private Vector3 _mousePosition;
+        [SerializeField]
         private float _yaw;
         private float _pitch;
         private float _zoom;
