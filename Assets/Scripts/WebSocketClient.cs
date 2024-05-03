@@ -220,6 +220,7 @@ public class WebSocketClient : MonoBehaviour
             Debug.Log("Execution is done");
             FetchAndHandleImages(prompt_id);
             updateSlider = false;
+            needsToFetchImage = false;
         }
 
         
@@ -267,12 +268,11 @@ public class WebSocketClient : MonoBehaviour
             if (e.IsText)
             {
                 var message = JsonUtility.FromJson<WebSocketMessage>(e.Data);
+                Debug.Log(e.Data);
                 if (message.type == "executing")
                 {
-                    Debug.Log(e.Data);
                     if (message.data.prompt_id == prompt_id)
                     {
-                        Debug.Log(message.data.ToString());
                         Debug.Log(message.data.node.ToString());
                         if (message.data.node == null || message.data.node == "")
                         {
@@ -422,7 +422,6 @@ public class WebSocketClient : MonoBehaviour
                     byte[] blob = await GetImage(image.filename, image.subfolder, image.type);
                     panoImage.CreateCubemapFromImageData(blob);
                     Debug.Log($"Image retrieved: {image.filename}");
-                    // Additional handling of the image as needed
                 }
             }
         }

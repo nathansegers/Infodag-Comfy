@@ -4,13 +4,12 @@ using System.Text.RegularExpressions;
 
 public class LoadJson : MonoBehaviour
 {
-    public string path = "workflow-small.json"; // Adjust the path as necessary
+    public string path = "workflow_api.json"; // Adjust the path as necessary
     public string jsonContent;
 
     void Start()
     {
         jsonContent = ReadJsonFile(path);
-        Debug.Log("Read Json file");
         // DebugMatches(jsonContent, "16");
         // jsonContent = ModifyPrompt(jsonContent, "16", "Your new positive prompt here", "Your new negative prompt here");
         // DebugMatches(jsonContent, "16");
