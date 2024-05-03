@@ -1534,7 +1534,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.19864404, g: 1, b: 0.09019607, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1548,14 +1548,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 198324157}
   m_FillRect: {fileID: 2145605385}
   m_HandleRect: {fileID: 198324155}
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1000
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -19070,14 +19070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b96f8ed348d44f4a9936702770ec92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiUrl: http://localhost:3000/generate-image
-  promptText: 360 View, enchanted forest with colorful magical bioluminescent mushrooms
-    growing, 8k, masterpiece, trending on artstation
   targetMaterial: {fileID: 2100000, guid: 503161aa846cabf4e90e8b5fdd5df395, type: 2}
   cubemaps:
-  - {fileID: 8900000, guid: 1411ec32ba01d4b1d952a6df99467704, type: 3}
   - {fileID: 8900000, guid: 119f5156345db47cfa4984e58c511519, type: 3}
-  - {fileID: 8900000, guid: f93e14d79c499494e9c4921a28732818, type: 3}
   - {fileID: 8900000, guid: 29ad61fa6ae00442c8be4b88dd60501b, type: 3}
   - {fileID: 8900000, guid: 6c31dcd161e014690ac875682ff0dc6b, type: 3}
   - {fileID: 8900000, guid: a1556ab133f3149529627bff183091f2, type: 3}
@@ -19113,14 +19108,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89eecd2327ab54ce081cd40c13760f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  httpProtocol: https
+  wsProtocol: wss
+  serverAddress: comfy.sizingservers.be
   loadJson: {fileID: 1946445125}
   prompt_id: 5cf26e4f-299a-4e96-acf6-9f717c92c3bc
   positivePrompt: 360 View, enchanted forest with colorful magical bioluminescent
     mushrooms growing, 8k, masterpiece, trending on artstation
   panoImage: {fileID: 1946445124}
   receivedMessages: {fileID: 156377729}
-  positivePromptInput: {fileID: 0}
+  positivePromptInput: {fileID: 1022626045}
   canvas: {fileID: 1288268496}
+  btn: {fileID: 203970821}
+  needsToFetchImage: 0
+  updateSlider: 0
 --- !u!1 &1952513587
 GameObject:
   m_ObjectHideFlags: 0
