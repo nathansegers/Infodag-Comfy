@@ -170,6 +170,8 @@ public class WebSocketClient : MonoBehaviour
         websocket.OnMessage += OnMessage;
 
         btn.onClick.AddListener(GenerateImage);
+        // waiting for messages
+        websocket.ConnectAsync();
     }
 
     void Awake()
@@ -184,7 +186,8 @@ public class WebSocketClient : MonoBehaviour
         Debug.Log("Base address: " + _baseAddress);
     }
 
-    void GenerateImage() {
+    void GenerateImage()
+    {
         positivePrompt = positivePromptInput.text;
         Debug.Log("Positive prompt: " + positivePrompt);
         // Use the LoadJson class and update the value using a new prompt
@@ -199,7 +202,8 @@ public class WebSocketClient : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.LeftControl)) {
+        if (Input.GetKeyDown(KeyCode.H) && Input.GetKey(KeyCode.LeftControl))
+        {
             canvas.enabled = !canvas.enabled;
         }
     }
@@ -227,31 +231,38 @@ public class WebSocketClient : MonoBehaviour
 
     private void OnMessage(object sender, MessageEventArgs e)
     {
-        // Previews are binary data
-        if (e.IsBinary)
+        try
         {
-            return;
-        }
 
-        if (e.IsText)
-        {
-            var message = JsonUtility.FromJson<WebSocketMessage>(e.Data);
-
-            if (message.type == "executing")
+            // Previews are binary data
+            if (e.IsBinary)
             {
-                receivedMessages.value += 1; // Add another loading dot
-                if (message.data.prompt_id == prompt_id)
+                return;
+            }
+
+            if (e.IsText)
+            {
+                var message = JsonUtility.FromJson<WebSocketMessage>(e.Data);
+
+                if (message.type == "executing")
                 {
-                    if (message.data.node == null)
+                    if (message.data.prompt_id == prompt_id)
                     {
-                        Debug.Log("Execution is done");
+                        if (message.data.node == null)
+                        {
+                            Debug.Log("Execution is done");
 
-                        FetchAndHandleImages(prompt_id);
+                            FetchAndHandleImages(prompt_id);
 
-                        websocket.Close(); // Close connection if execution is done
+                            // websocket.Close(); // Close connection if execution is done
+                        }
                     }
                 }
             }
+        }
+        catch (Exception ex)
+        {
+            Debug.Log("Exception caught: " + ex.Message);
         }
     }
 
@@ -269,10 +280,6 @@ public class WebSocketClient : MonoBehaviour
             TaskCompletionSource<ImagesResponse> completionSource = new TaskCompletionSource<ImagesResponse>();
             ImagesResponse outputImages = new ImagesResponse();
 
-            websocket.OnMessage += OnMessage;
-
-            // waiting for messages
-            websocket.ConnectAsync();
 
             return await completionSource.Task;
         }
@@ -373,26 +380,26 @@ public class WebSocketClient : MonoBehaviour
     {
         // try
         // {
-            HistoryResult historyResult = await GetHistory(promptId);
-            Debug.Log($"History result retrieved for prompt {promptId}");
-            // Assuming you know the key for the last node or it's always "70"
-            Debug.Log(historyResult.ToString());
-            string lastNodeKey = "70";
-            if (historyResult.ContainsKey(promptId))
+        HistoryResult historyResult = await GetHistory(promptId);
+        Debug.Log($"History result retrieved for prompt {promptId}");
+        // Assuming you know the key for the last node or it's always "70"
+        Debug.Log(historyResult.ToString());
+        string lastNodeKey = "70";
+        if (historyResult.ContainsKey(promptId))
+        {
+            var historyRes = historyResult[promptId];
+            var outputImageList = historyRes.outputs[lastNodeKey];
+            if (outputImageList != null)
             {
-                var historyRes = historyResult[promptId];
-                var outputImageList = historyRes.outputs[lastNodeKey];
-                if (outputImageList != null)
+                foreach (var image in outputImageList.images)
                 {
-                    foreach (var image in outputImageList.images)
-                    {
-                        byte[] blob = await GetImage(image.filename, image.subfolder, image.type);
-                        panoImage.CreateCubemapFromImageData(blob);
-                        Debug.Log($"Image retrieved: {image.filename}");
-                        // Additional handling of the image as needed
-                    }
+                    byte[] blob = await GetImage(image.filename, image.subfolder, image.type);
+                    panoImage.CreateCubemapFromImageData(blob);
+                    Debug.Log($"Image retrieved: {image.filename}");
+                    // Additional handling of the image as needed
                 }
             }
+        }
         // }
         // catch (Exception e)
         // {

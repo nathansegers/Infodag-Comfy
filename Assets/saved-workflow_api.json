@@ -52,7 +52,7 @@
       "title": "CLIP Set Last Layer"
     }
   },
-  "16":{"inputs":{"positive_prompt":"360 View, Stalactites in a cave, 8k, masterpiece, trending on artstation",
+  "16":{"inputs":{"positive_prompt":"360 View, Test prompt, 8k, masterpiece, trending on artstation",
       "negative_prompt": "text, watermark",
       "ratio_selected": "21:9 [1536x640 landscape]",
       "custom_size": "true",
@@ -60,7 +60,7 @@
       "custom_width": 1600,
       "custom_height": 800,
       "batch_size": 1,
-      "seed": 3035,
+      "seed": 8801,
       "target_mode": "4x",
       "base_model": [
         "20",
@@ -98,7 +98,7 @@
   },
   "21": {
     "inputs": {
-      "seed": 3035,
+      "seed": 8801,
       "steps": 30,
       "cfg": 8,
       "sampler_name": "dpmpp_3m_sde",
@@ -392,7 +392,7 @@
   },
   "58": {
     "inputs": {
-      "seed": 3035,
+      "seed": 8801,
       "steps": 30,
       "cfg": 8,
       "sampler_name": "dpmpp_3m_sde",
@@ -434,7 +434,7 @@
       "pixel_upscaler": "4x-AnimeSharp.pth",
       "upscale_by": 2,
       "use_same_seed": true,
-      "seed": 3035,
+      "seed": 8801,
       "hires_steps": 12,
       "denoise": 0.56,
       "iterations": 1,
