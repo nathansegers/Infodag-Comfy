@@ -212,6 +212,10 @@ public class WebSocketClient : MonoBehaviour
             canvas.enabled = !canvas.enabled;
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftControl)) {
+            FetchAndHandleImages(prompt_id);
+        }
+
         if (needsToFetchImage) {
             Debug.Log("Execution is done");
             FetchAndHandleImages(prompt_id);
@@ -263,12 +267,13 @@ public class WebSocketClient : MonoBehaviour
             if (e.IsText)
             {
                 var message = JsonUtility.FromJson<WebSocketMessage>(e.Data);
-
                 if (message.type == "executing")
                 {
+                    Debug.Log(e.Data);
                     if (message.data.prompt_id == prompt_id)
                     {
-                        Debug.Log("Currently processing node: " + message.data.node);
+                        Debug.Log(message.data.ToString());
+                        Debug.Log(message.data.node.ToString());
                         if (message.data.node == null || message.data.node == "")
                         {
                             Debug.Log("Fetching images now ?");
@@ -387,6 +392,7 @@ public class WebSocketClient : MonoBehaviour
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             byte[] imageData = await response.Content.ReadAsByteArrayAsync();
+            Debug.Log("Image downloaded");
             return imageData;
         }
         catch (HttpRequestException e)
