@@ -1,0 +1,652 @@
+{
+  "last_node_id": 73,
+  "last_link_id": 132,
+  "nodes": [
+    {
+      "id": 14,
+      "type": "CLIPSetLastLayer",
+      "pos": [
+        -140,
+        430
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 132
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            26,
+            31
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPSetLastLayer"
+      },
+      "widgets_values": [
+        -1
+      ]
+    },
+    {
+      "id": 68,
+      "type": "HighRes-Fix Script",
+      "pos": [
+        789,
+        908
+      ],
+      "size": [
+        325,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "script",
+          "type": "SCRIPT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCRIPT",
+          "type": "SCRIPT",
+          "links": [
+            114
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HighRes-Fix Script"
+      },
+      "widgets_values": [
+        "latent",
+        "(use same)",
+        "nearest-exact",
+        "4x-AnimeSharp.pth",
+        2,
+        true,
+        593130314452256,
+        null,
+        12,
+        0.56,
+        1,
+        false,
+        "OpenPoseXL2.safetensors",
+        1,
+        "none",
+        false
+      ],
+      "color": "#443322",
+      "bgcolor": "#665533",
+      "shape": 1
+    },
+    {
+      "id": 20,
+      "type": "FreeU_V2",
+      "pos": [
+        -512,
+        797
+      ],
+      "size": {
+        "0": 315,
+        "1": 130
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 128
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            119
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FreeU_V2"
+      },
+      "widgets_values": [
+        1.3,
+        1.4,
+        0.9,
+        0.2
+      ]
+    },
+    {
+      "id": 16,
+      "type": "Prompt With Style V3",
+      "pos": [
+        188,
+        299
+      ],
+      "size": {
+        "0": 365.9878845214844,
+        "1": 526.8702392578125
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "base_model",
+          "type": "MODEL",
+          "link": 119
+        },
+        {
+          "name": "clip_base",
+          "type": "CLIP",
+          "link": 26
+        },
+        {
+          "name": "clip_refiner",
+          "type": "CLIP",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "base_model",
+          "type": "MODEL",
+          "links": [
+            35
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "links": [
+            38
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "base_pos_cond",
+          "type": "CONDITIONING",
+          "links": [
+            36
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "base_neg_cond",
+          "type": "CONDITIONING",
+          "links": [
+            37
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "refiner_pos_cond",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "refiner_neg_cond",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "positive_prompt",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Prompt With Style V3"
+      },
+      "widgets_values": [
+        "A 360-degree equirectangular panorama depicting a fantastical ocean scene with a serene beach. The panorama showcases a tranquil turquoise ocean gently lapping against a soft, sandy beach. The sky above is a vibrant canvas of sunset colors, blending pinks and oranges with the blue. Lush, exotic vegetation fringes the beach, enhancing the tropical ambiance. The panorama is designed for horizontal tiling, ensuring seamless continuity around a virtual environment. This high-quality, immersive scene is suitable for a 4K or 8K skybox. Seamless inpaiting. Flawless. ",
+        "text, watermark",
+        "21:9 [1536x640 landscape]",
+        "true",
+        "true",
+        1600,
+        800,
+        1,
+        69247,
+        "fixed",
+        "4x"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -510,
+        270
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            128
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            132
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            39
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sdxl/juggernautXL_juggernautX.safetensors"
+      ]
+    },
+    {
+      "id": 44,
+      "type": "ImageConcanate",
+      "pos": [
+        1354,
+        202
+      ],
+      "size": {
+        "0": 315,
+        "1": 102
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 130
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 129
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            131
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageConcanate"
+      },
+      "widgets_values": [
+        "right",
+        false
+      ]
+    },
+    {
+      "id": 11,
+      "type": "FileNamePrefix",
+      "pos": [
+        1338,
+        590
+      ],
+      "size": {
+        "0": 269.2638244628906,
+        "1": 130
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "links": [
+            117
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FileNamePrefix"
+      },
+      "widgets_values": [
+        "true",
+        "true",
+        "",
+        "360_TMP"
+      ]
+    },
+    {
+      "id": 70,
+      "type": "SaveImage",
+      "pos": [
+        1738,
+        349
+      ],
+      "size": {
+        "0": 315,
+        "1": 266
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 131
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": 117,
+          "widget": {
+            "name": "filename_prefix"
+          }
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "KSampler (Efficient)",
+      "pos": [
+        788,
+        256
+      ],
+      "size": {
+        "0": 325,
+        "1": 562
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 35
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 36
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 37
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 38
+        },
+        {
+          "name": "optional_vae",
+          "type": "VAE",
+          "link": 39
+        },
+        {
+          "name": "script",
+          "type": "SCRIPT",
+          "link": 114,
+          "slot_index": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CONDITIONING+",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "CONDITIONING-",
+          "type": "CONDITIONING",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            129,
+            130
+          ],
+          "shape": 3,
+          "slot_index": 5
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler (Efficient)"
+      },
+      "widgets_values": [
+        321081612297980,
+        null,
+        1,
+        3,
+        "dpmpp_3m_sde",
+        "karras",
+        1,
+        "auto",
+        "true"
+      ],
+      "color": "#332222",
+      "bgcolor": "#553333",
+      "shape": 1
+    }
+  ],
+  "links": [
+    [
+      26,
+      14,
+      0,
+      16,
+      1,
+      "CLIP"
+    ],
+    [
+      31,
+      14,
+      0,
+      16,
+      2,
+      "CLIP"
+    ],
+    [
+      35,
+      16,
+      0,
+      21,
+      0,
+      "MODEL"
+    ],
+    [
+      36,
+      16,
+      2,
+      21,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      37,
+      16,
+      3,
+      21,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      38,
+      16,
+      1,
+      21,
+      3,
+      "LATENT"
+    ],
+    [
+      39,
+      4,
+      2,
+      21,
+      4,
+      "VAE"
+    ],
+    [
+      114,
+      68,
+      0,
+      21,
+      5,
+      "SCRIPT"
+    ],
+    [
+      117,
+      11,
+      0,
+      70,
+      1,
+      "STRING"
+    ],
+    [
+      119,
+      20,
+      0,
+      16,
+      0,
+      "MODEL"
+    ],
+    [
+      128,
+      4,
+      0,
+      20,
+      0,
+      "MODEL"
+    ],
+    [
+      129,
+      21,
+      5,
+      44,
+      1,
+      "IMAGE"
+    ],
+    [
+      130,
+      21,
+      5,
+      44,
+      0,
+      "IMAGE"
+    ],
+    [
+      131,
+      44,
+      0,
+      70,
+      0,
+      "IMAGE"
+    ],
+    [
+      132,
+      4,
+      1,
+      14,
+      0,
+      "CLIP"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
