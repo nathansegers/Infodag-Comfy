@@ -116,9 +116,9 @@ public class WebSocketClient : MonoBehaviour
 {
 
     private WebSocket websocket;
-    private string httpProtocol = "https";
-    private string wsProtocol = "wss";
-    private string serverAddress = "comfy.sizingservers.be";
+    public string httpProtocol = "https";
+    public string wsProtocol = "wss";
+    public string serverAddress = "comfy.sizingservers.be";
 
     private HttpClient _httpClient;
     private string _baseAddress;
@@ -141,13 +141,18 @@ public class WebSocketClient : MonoBehaviour
     public Canvas canvas;
     public Button btn;
 
+    public bool needsToFetchImage = false;
+    public bool updateSlider = false;
+
     void Start()
     {
         var clientId = "Comfy-ImmersiveRoom";
         var wsUrl = $"{wsProtocol}://{serverAddress}/ws?clientId={clientId}";
         websocket = new WebSocket(wsUrl);
+        if (wsProtocol == "wss") {
         websocket.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
         websocket.SslConfiguration.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+        }
 
         Debug.Log("Connecting to websocket server...: " + wsUrl);
 
@@ -206,6 +211,20 @@ public class WebSocketClient : MonoBehaviour
         {
             canvas.enabled = !canvas.enabled;
         }
+
+        if (needsToFetchImage) {
+            Debug.Log("Execution is done");
+            FetchAndHandleImages(prompt_id);
+            updateSlider = false;
+        }
+
+        
+    }
+
+    void FixedUpdate() {
+        if (updateSlider) {
+            receivedMessages.value += 0.05f;
+        }
     }
 
     private async Task OnApplicationQuit()
@@ -233,6 +252,7 @@ public class WebSocketClient : MonoBehaviour
     {
         try
         {
+            updateSlider = true;
 
             // Previews are binary data
             if (e.IsBinary)
@@ -248,12 +268,12 @@ public class WebSocketClient : MonoBehaviour
                 {
                     if (message.data.prompt_id == prompt_id)
                     {
-                        if (message.data.node == null)
+                        Debug.Log("Currently processing node: " + message.data.node);
+                        if (message.data.node == null || message.data.node == "")
                         {
-                            Debug.Log("Execution is done");
-
-                            FetchAndHandleImages(prompt_id);
-
+                            Debug.Log("Fetching images now ?");
+                            needsToFetchImage = true;
+                            updateSlider = false;
                             // websocket.Close(); // Close connection if execution is done
                         }
                     }
